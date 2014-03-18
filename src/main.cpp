@@ -9,7 +9,7 @@
 #include "stdio.h"
 #include "tools/macros.h"
 #include "structures/PairingHeap.h"
-
+#include "structures/ArrayStack.h"
 
 int main(){
 
@@ -27,11 +27,26 @@ int main(){
 	heap.add(4);
 	heap.add(-4);
 
+
+
 	printf("T: %d %d\n", heap.pool(), heap.size());
 	printf("T: %d %d\n", heap.pool(), heap.size());
 	printf("T: %d %d\n", heap.pool(), heap.size());
 	printf("T: %d %d\n", heap.pool(), heap.size());
 	printf("T: %d %d\n", heap.pool(), heap.size());
+
+
+	ArrayStack<int> stack = ArrayStack<int>(10);
+
+	stack.push(45);
+	stack.push(98);
+	stack.push(-44);
+	stack.push(789);
+
+	printf("T: %d\n", stack.pop());
+	printf("T: %d\n", stack.pop());
+	printf("T: %d\n", stack.pop());
+	printf("T: %d\n", stack.pop());
 
 	return 0;
 }
