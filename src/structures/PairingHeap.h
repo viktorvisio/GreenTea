@@ -9,6 +9,7 @@
 #define PAIRINGHEAP_H_
 
 #include <iostream>
+#include "Exception.h"
 
 namespace GT {
 
@@ -79,7 +80,7 @@ public:
 		T r;
 
 		if(root == NULL){
-			throw new std::exception; // TODO Vratit nieco ine.
+			throw Exception("ArrayStack: There is nothing to pop!");
 		}
 
 		r = root->data;
