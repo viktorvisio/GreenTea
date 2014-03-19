@@ -8,11 +8,17 @@
 #ifndef STACK_H_
 #define STACK_H_
 
+#include "Exception.h"
+
+namespace GT{
+
+
+
 template<typename T>
 class ArrayStack{
 	T* array;
 	int cap;
-	int current;
+	int current; // TODO pridat size
 public:
 	ArrayStack(int capacity){
 		cap = capacity;
@@ -25,18 +31,17 @@ public:
 	}
 
 	bool push(T data){
-
 		if(current >= cap){
 			return false;
 		}
-		++current;
 		array[current] = data;
+		++current;
 		return true;
 	}
 
 	T	pop(){
 		if(current < 0)
-			return 0;
+			throw Exception("ArrayStack: There is nothing to pop!");
 
 		T r = array[current];
 		--current;
@@ -45,5 +50,6 @@ public:
 	}
 };
 
+};
 
 #endif /* STACK_H_ */

@@ -7,7 +7,6 @@
 
 #ifndef PAIRINGHEAP_H_
 #define PAIRINGHEAP_H_
-#define NULL 0
 
 #include <iostream>
 
@@ -80,7 +79,7 @@ public:
 		T r;
 
 		if(root == NULL){
-			return NULL;
+			throw new std::exception; // TODO Vratit nieco ine.
 		}
 
 		r = root->data;

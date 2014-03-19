@@ -24,4 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define	SWAP(A,B)	{A ^= B; B ^= A; A ^= B;}
 
+#define DEBUG_TRY_START try{
+#define DEBUG_TRY_STOP } \
+	catch(GT::Exception &e){ \
+		PRINT_ERROR(e.what()); \
+	}
+
 #endif /* MACROS_H_ */
