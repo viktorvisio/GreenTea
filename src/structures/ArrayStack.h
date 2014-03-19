@@ -12,8 +12,6 @@
 
 namespace GT{
 
-
-
 template<typename T>
 class ArrayStack{
 	T* array;
@@ -42,11 +40,13 @@ public:
 	T	pop(){
 		if(current < 0)
 			throw Exception("ArrayStack: There is nothing to pop!");
-
-		T r = array[current];
 		--current;
 
-		return r;
+		return array[current];
+	}
+
+	int size(){
+		return current;
 	}
 };
 

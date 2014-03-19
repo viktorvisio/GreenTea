@@ -102,7 +102,7 @@ static void merge_sort(T* array, int size, int (*com_func)(const T &a,const T &b
 		for(int n = 0; n < size; n += 2*width){
 			bottomUPcomp<T>(array, buffer, n, min(n+width, size), min(n+2*width, size), com_func);
 		}
-		memcpy(array, buffer, size*sizeof(int));
+		memcpy(array, buffer, size*sizeof(T));
 	}
 
 	delete[] buffer;

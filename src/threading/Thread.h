@@ -13,8 +13,6 @@
 
 namespace GT {
 
-
-
 class Thread {
 public:
 

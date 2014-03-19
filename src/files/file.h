@@ -40,7 +40,6 @@ list<string> 	readTextFileLines(const string &file_name);
 void 			vecPairToMap(map< string, string>* dst, const vector<string>* src);
 
 
-
 /**
  * Pracovna verzia. Porovna rychlosti medzi readTextFile a tymto.
  */

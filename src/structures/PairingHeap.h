@@ -14,7 +14,18 @@
 namespace GT {
 
 template<typename T>
+int default_comparator(const T &a, const T &b){
+	if(a > b)
+		return -1;
+	else if(a == b)
+		return 0;
+
+	return 1;
+}
+
+template<typename T>
 class PairingHeap {
+private:
 
 	struct heap_node_s{
 		T data;
@@ -22,10 +33,12 @@ class PairingHeap {
 		heap_node_s* left;
 	};
 
+	typedef int (*binary_comparator_t)(const T &a, const T &b);
+
 	unsigned int count;
 	heap_node_s* root;
+	binary_comparator_t comparator;
 
-private:
 	void pair(heap_node_s* temp){
 		temp->right = NULL;
 
@@ -34,7 +47,7 @@ private:
 			return;
 		}
 
-		if(temp->data < root->data){
+		if(comparator(temp->data, root->data) == -1){
 			temp->left = root;
 			root = temp;
 		}else{
@@ -43,13 +56,39 @@ private:
 		}
 	}
 
+	void delete_recursive(heap_node_s* node){
+		if(node == NULL)
+			return;
+
+		delete_recursive(node->left);
+		delete_recursive(node->right);
+
+		printf("K: %d\n", node->data);
+
+		delete node;
+		/*
+		if(node->left == NULL && node->right == NULL){
+			delete node;
+		}*/
+	}
+
 public:
 	PairingHeap(){
 		root = NULL;
 		count = 0;
+		comparator = default_comparator;
 	}
-	virtual ~PairingHeap(){
 
+
+
+	virtual ~PairingHeap(){
+		delete_recursive(root);
+	}
+
+	PairingHeap(binary_comparator_t comp){
+		root = NULL;
+		count = 0;
+		comparator = comp;
 	}
 
 	void add(T data){
@@ -63,7 +102,7 @@ public:
 			return;
 		}
 
-		if(temp->data < root->data){
+		if(comparator(temp->data, root->data) == -1){
 			temp->left = root;
 			root = temp;
 		}else{
@@ -80,7 +119,7 @@ public:
 		T r;
 
 		if(root == NULL){
-			throw Exception("ArrayStack: There is nothing to pop!");
+			throw Exception("PairingHeap: There is nothing to pool!");
 		}
 
 		r = root->data;
