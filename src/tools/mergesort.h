@@ -90,6 +90,9 @@ static void bottomUPcomp(int* array, int* buffer, int left, int right, int end, 
 	}
 }
 
+/**
+ * Arrayed Merge sort with custom compare function. Buffer is dynamically allocated.
+ */
 template<typename T>
 static void merge_sort(T* array, int size, int (*com_func)(const T &a,const T &b)){
 	T* buffer = new T[size];

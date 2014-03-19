@@ -17,8 +17,8 @@ const char* toString(const int &input){
 	else
 		t = input;
 
-	int i = 11;
-	toStringIntbuffer[10] = 0;
+	int i = LAST_BUFF_INDEX - 1;
+	toStringIntbuffer[LAST_BUFF_INDEX] = 0;
 
 	do{
 		toStringIntbuffer[i] =  t%10 + '0';
@@ -69,6 +69,58 @@ const char* toStringHex(const int &input){
 		toStringIntbuffer[i] = ' ';
 
 	return &toStringIntbuffer[i];
+}
+
+vector<string> split(const string &src, const string &delimiters){
+	vector<string> list;
+	string substr;
+
+	int p = 0;
+	int s = 0;
+
+	p = src.find_first_of(delimiters,s);
+
+	while(p != -1){
+		if(s != p){
+			list.push_back(src.substr(s,p-s));
+		}
+
+		s = p + 1;
+		p = src.find_first_of(delimiters,s);
+	}
+
+	if(s < src.size()){
+		list.push_back(src.substr(s));
+	}
+
+	return list;
+}
+
+vector<string> splitWithEmpty(const string &src, const string &delimiters){
+	vector<string> list;
+	string substr;
+
+	int p = 0;
+	int s = 0;
+
+	p = src.find_first_of(delimiters,s);
+
+	while(p != -1){
+		if(s != p){
+			list.push_back(src.substr(s,p-s));
+		}
+		else
+			list.push_back("");
+
+		s = p + 1;
+		p = src.find_first_of(delimiters,s);
+	}
+
+	if(s < src.size()){
+		list.push_back(src.substr(s));
+	}
+
+	return list;
 }
 
 };

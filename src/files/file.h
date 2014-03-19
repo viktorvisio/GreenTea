@@ -1,6 +1,5 @@
 /*
-C++ server for web-driven administration with module support.
-Copyright (C) 2014  Vladimír Bartošík, Martin Kuzma, Marek Moravčík
+Copyright (C) 2014  Vladimír Bartošík, Martin Kuzma
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -38,8 +37,6 @@ namespace GT{
 list<string>    getFilesInDirectory(const string &dir);
 string 			readTextFile(const string &file_name);
 list<string> 	readTextFileLines(const string &file_name);
-vector<string> 	split(const string &src, const string &delimiters);
-vector<string> 	splitWithEmpty(const string &src, const string &delimiters);
 void 			vecPairToMap(map< string, string>* dst, const vector<string>* src);
 
 
