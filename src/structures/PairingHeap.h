@@ -62,14 +62,7 @@ private:
 
 		delete_recursive(node->left);
 		delete_recursive(node->right);
-
-		printf("K: %d\n", node->data);
-
 		delete node;
-		/*
-		if(node->left == NULL && node->right == NULL){
-			delete node;
-		}*/
 	}
 
 public:
@@ -78,8 +71,6 @@ public:
 		count = 0;
 		comparator = default_comparator;
 	}
-
-
 
 	virtual ~PairingHeap(){
 		delete_recursive(root);
@@ -138,10 +129,9 @@ public:
 		return r;
 	}
 
-	unsigned int size(){
+	const unsigned int& size(){
 		return count;
 	}
-
 };
 
 } /* namespace GT */
