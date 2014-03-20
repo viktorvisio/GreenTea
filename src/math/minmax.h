@@ -20,19 +20,23 @@ double func(double x){
 	return cos(x);
 }
 
+struct func_ret_s{
+	double value;
+	double input;
+};
 
 /**
  *	Hladanie podla zlateho rezu, dokoncit.
  */
-template<typename T>
-void min(T(*func)(T), T start, T end, T epsilon = 0.00001f){
-	T r = start + DEFAULT_RATIO*(end - start);
-	T l = end - DEFAULT_RATIO*(end - start);
-	T f1;
-	T f2;
-	T min;
-	T minPoint;
-	T err;
+inline void min(double(*func)(double), double start, double end, double epsilon = 0.00000000000001){
+	double r = start + DEFAULT_RATIO*(end - start);
+	double l = end - DEFAULT_RATIO*(end - start);
+	double f1;
+	double f2;
+
+	func_ret_s ret;
+	ret.value = 9999999999;
+	double err;
 
 	do{
 		f1 = func(l);
@@ -40,21 +44,20 @@ void min(T(*func)(T), T start, T end, T epsilon = 0.00001f){
 
 		if(f1 < f2){
 			end = r;
+			err = std::abs(f1 - ret.value);
 
-			err = std::abs(f1 - min);
-
-			if(f1 < min){
-				min = f1;
-				minPoint = l;
+			if(f1 < ret.value){
+				ret.value = f1;
+				ret.input = l;
 			}
 		}
 		else{
 			start = l;
-			err = std::abs(f2 - min);
+			err = std::abs(f2 - ret.value);
 
-			if(f2 < min){
-				min = f2;
-				minPoint = r;
+			if(f2 < ret.value){
+				ret.value = f2;
+				ret.input = r;
 			}
 		}
 
@@ -63,8 +66,7 @@ void min(T(*func)(T), T start, T end, T epsilon = 0.00001f){
 
 	}while(err > epsilon);
 
-
-	printf("Min: %f Point: %f\n", min, minPoint);
+	printf("Min: %f Point: %f\n", ret.value, ret.input);
 }
 
 };

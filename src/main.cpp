@@ -30,7 +30,7 @@ int kek_compare(const kek &a, const kek &b){
 int main(){
 
 	//GT::PairingHeap<kek> hrep = GT::PairingHeap<kek>(kek_compare);
-	GT::min<double>(GT::func,0.0,8.1, 0.00000000000001);
+	GT::min(GT::func,0.0,8.1, 0.00000000000001);
 
 	GT::PairingHeap<int>* heap = new GT::PairingHeap<int>();
 
