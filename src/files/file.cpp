@@ -17,26 +17,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "file.h"
+#include <sys/stat.h>
 
 namespace GT{
 
-list<string> getFilesInDirectory(const string &dir)
+void getFilesInDirectory(const string &root, list<string> &fileNames, bool recursive, bool absolutePaths)
 {
-	list<string> fileNames;
 	DIR* directory;
 	struct dirent* dirEntity;
+	struct stat st;
 
-	directory = opendir(dir.c_str());
-	if(directory != NULL)
+	if(stat(root.c_str(), &st) == 0)
 	{
-		while((dirEntity = readdir(directory)) != NULL)
-		{
-			fileNames.push_back(string(dirEntity->d_name));
-		}
-		closedir(directory);
-	}
+		if(S_ISREG (st.st_mode))
+			fileNames.push_back(root);
+		else
+			if(S_ISDIR (st.st_mode))
+			{
+				directory = opendir(root.c_str());
 
-	return fileNames;
+				if(directory != NULL)
+				{
+					while((dirEntity = readdir(directory)) != NULL)
+						if(strcmp(dirEntity -> d_name,".") == 0 || strcmp(dirEntity -> d_name,"..") == 0)
+							continue;
+						else
+						{
+							if(lstat((root + (string)dirEntity -> d_name).c_str(), &st) == 0)
+							{
+								if(absolutePaths)
+									fileNames.push_back(root + (string)dirEntity -> d_name);
+								else
+									fileNames.push_back((string)dirEntity -> d_name);
+								if(S_ISDIR (st.st_mode) && recursive)
+									getFilesInDirectory((root + (string)dirEntity -> d_name + "/"), fileNames, recursive, absolutePaths);
+							}
+						}
+
+					closedir(directory);
+				}
+			}
+	}
 }
 
 string readTextFile(const string &file_name){
