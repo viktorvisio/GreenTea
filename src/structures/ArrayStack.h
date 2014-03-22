@@ -17,11 +17,26 @@ class ArrayStack{
 	T* array;
 	int cap;
 	int current; // TODO pridat size
+	bool resizeStack;
+
+	// TODO check this code
+	void resize(int newCap){
+		T* arrayn = new T[newCap];
+		for(int n = 0; n < current; n++){
+			arrayn[n] = array[n];
+		}
+		delete[] array;
+		array = arrayn;
+	}
+
+
 public:
-	ArrayStack(int capacity){
+	ArrayStack(int capacity, bool res = false){
 		cap = capacity;
 		array = new T[cap];
 		current = 0;
+
+		resizeStack = res;
 	}
 
 	~ArrayStack(){
@@ -30,7 +45,10 @@ public:
 
 	bool push(T data){
 		if(current >= cap){
-			return false;
+			if(resizeStack)
+				resize(cap*2);
+			else
+				return false;
 		}
 		array[current] = data;
 		++current;

@@ -9,7 +9,7 @@
 #define VECTOR_H_
 
 /**
- * One dimensional vector to be used for different mathematical purposes.
+ * One dimensional vector used for different mathematical purposes.
  * Implemented as array.
  */
 #include <math.h>
@@ -57,6 +57,11 @@ public:
 		return true;
 	}
 
+	/*
+	inline bool operator=(const Vector &other) const{
+
+	}*/
+
 	inline Vector operator*(const Vector &other) const{
 
 		Vector v(size);
@@ -96,7 +101,7 @@ public:
 			ret += t*t;
 		}
 
-		return std::sqrt(ret);
+		return sqrt(ret);
 	}
 
 	float dist2(const Vector &other) const{
