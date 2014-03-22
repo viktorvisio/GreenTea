@@ -12,6 +12,7 @@
 #include "structures/ArrayStack.h"
 #include "tools/mergesort.h"
 #include "math/minmax.h"
+#include "math/Vector.h"
 
 struct kek{
 	char name;
@@ -28,6 +29,16 @@ int kek_compare(const kek &a, const kek &b){
 }
 
 int main(){
+
+	Vector<int> vec(40);
+	vec[1] = 456;
+
+	Vector<int> vec2(40);
+
+	Vector<int> tt = vec*vec2;
+
+
+	printf("V: %d\n", vec[1]);
 
 	//GT::PairingHeap<kek> hrep = GT::PairingHeap<kek>(kek_compare);
 	GT::min(GT::func,0.0,8.1, 0.00000000000001);
