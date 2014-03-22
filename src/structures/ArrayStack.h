@@ -27,6 +27,7 @@ class ArrayStack{
 		}
 		delete[] array;
 		array = arrayn;
+		cap = newCap;
 	}
 
 
