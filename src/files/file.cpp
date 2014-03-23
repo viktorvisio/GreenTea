@@ -1,6 +1,6 @@
 /*
 C++ server for web-driven administration with module support.
-Copyright (C) 2014  Vladimír Bartošík, Martin Kuzma, Marek Moravčík
+Copyright (C) 2014  Vladimír Bartošík, Martin Kuzma
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
