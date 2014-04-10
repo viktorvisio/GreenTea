@@ -18,13 +18,13 @@ namespace GT{
 #define BUFFSIZE 32
 #define LAST_BUFF_INDEX BUFFSIZE - 1
 
-char toStringIntbuffer[BUFFSIZE]; // static buffer, no other allocations needed
 
 const char* toString(const int &input);
 const char* toStringHex(const int &input);
 
 vector<string> 	split(const string &src, const string &delimiters);
 vector<string> 	splitWithEmpty(const string &src, const string &delimiters);
+string replaceAll(const string &src, const string &toReplace, const string &replacingString);
 };
 
 #endif /* STRING_H_ */
