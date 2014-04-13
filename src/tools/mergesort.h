@@ -64,7 +64,7 @@ static void merge_sort(T* array, int size){
 	delete[] buffer;
 }
 
-int int_comparator(const int &a, const int &b){
+static int int_comparator(const int &a, const int &b){
 	if(a < b)
 		return -1;
 	else if(a > b)

@@ -43,15 +43,33 @@ public:
 		delete[] data;
 	}
 
+	void init(int x, int y){
+		if(data != NULL){
+			for(int n = 0; n < rows; n++){
+				delete data[n];
+			}
+			delete[] data;
+		}
+
+		rows = x;
+		columns = y;
+		data = new T*[x];
+
+		// Jednoducha inicializacia matice.
+		for(int n = 0; n < rows; n++){
+			data[n] = new T[columns];
+		}
+	}
+
 	T* getRowPtr(int x){
 		return data[x];
 	}
 
-	T getVal(int x, int y){
+	T& getVal(int x, int y){
 		return data[x][y];
 	}
 
-	void setVal(int x, int y, T* val){
+	void setVal(int x, int y,const T& val){
 		data[x][y] = *val;
 	}
 

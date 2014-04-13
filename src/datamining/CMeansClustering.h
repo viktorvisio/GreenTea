@@ -17,25 +17,19 @@ namespace GT {
 
 class CMeansClustering {
 private:
-	std::list<Vector<float> > vectorList;
-
-	Matrix<float>* distanceMatrix; // TODO je matica sposobila na taketo pouzitie?
-
+	std::list<const Vector<float>* > vectorList;
+	//Matrix<float> distanceMatrix; // TODO je matica sposobila na taketo pouzitie?
 	Vector<int>* prevAssigments;
 	Vector<int>* currentAssigments;
-
-
+	//Vector<Vector<float> > centers; // ako sa bude vector inicializovat?
 	int numberOfCenters;
 	int vectorSize; // Will be min from all vector sizes, in case they differ.
-	void getCenterAssigments();
 
 public:
-	CMeansClustering(int centers);
+	CMeansClustering(int centers, int vector_attributes, int vector_count);
 	virtual ~CMeansClustering();
-
-	void addVector(const Vector<float> &vec);
+	void addVector(const Vector<float>* vec);
 	void calculateCenters();
-
 };
 
 } /* namespace GT */
