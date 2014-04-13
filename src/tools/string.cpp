@@ -9,6 +9,8 @@
 
 namespace GT{
 
+char toStringIntbuffer[BUFFSIZE]; // static buffer, no other allocations needed
+
 const char* toString(const int &input){
 	string s;
 	int t;
@@ -121,6 +123,22 @@ vector<string> splitWithEmpty(const string &src, const string &delimiters){
 	}
 
 	return list;
+}
+
+string replaceAll(const string &src, const string &toReplace, const string &replacingString)
+{
+	string ret = src;
+
+	for(size_t pos = 0; ;pos += replacingString.length())
+	{
+		pos = ret.find(toReplace, pos);
+		if( pos == string::npos ) //reached end of string
+			break;
+		ret.erase(pos, toReplace.length());
+		ret.insert(pos, replacingString);
+	}
+
+	return ret;
 }
 
 };
