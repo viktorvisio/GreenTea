@@ -58,15 +58,12 @@ void getFilesInDirectory(const string &root, list<string> &fileNames, bool recur
 							if(recursive)
 								getFilesInDirectory((root + (string)dirEntity -> d_name + "/"), fileNames, recursive, absolutePaths, filesOnly);
 						}
+						else if(absolutePaths)
+							fileNames.push_back(root + (string)dirEntity -> d_name);
 						else
-						{
-							if(absolutePaths)
-								fileNames.push_back(root + (string)dirEntity -> d_name);
-							else
-								fileNames.push_back((string)dirEntity -> d_name);
-						}
-					}
+							fileNames.push_back((string)dirEntity -> d_name);
 
+					}
 					closedir(directory);
 				}
 			}
