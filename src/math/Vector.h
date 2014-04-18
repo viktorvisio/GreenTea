@@ -13,6 +13,7 @@
  * Implemented as array.
  */
 #include <math.h>
+#include "../tools/mergesort.h"
 
 template<typename T>
 class Vector{
@@ -135,6 +136,14 @@ public:
 			v[n] = data[n];
 
 		return v;
+	}
+
+	void sort(){
+		GT::merge_sort(data,size);
+	}
+
+	int getSize() const{
+		return size;
 	}
 
 };

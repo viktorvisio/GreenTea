@@ -50,10 +50,18 @@ private:
 		if(comparator(temp->data, root->data) == -1){
 			temp->left = root;
 			root = temp;
+
+			if(temp->left == NULL)
+				temp->left = root;
+			else{
+				root->right = temp->left;
+				temp->left = root;
+			}
 		}else{
 			temp->right = root->left;
 			root->left = temp;
 		}
+
 	}
 
 	void delete_recursive(heap_node_s* node){
