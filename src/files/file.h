@@ -34,7 +34,7 @@ using namespace std;
 
 namespace GT{
 
-void    getFilesInDirectory(const string &dir, list<string> &fileNames, bool recursive = false, bool absolutePaths = false);
+void    		getFilesInDirectory(const string &dir, list<string> &fileNames, bool recursive = false, bool absolutePaths = false, bool filesOnly = false);
 string 			readTextFile(const string &file_name);
 list<string> 	readTextFileLines(const string &file_name);
 void 			vecPairToMap(map< string, string>* dst, const vector<string>* src);
