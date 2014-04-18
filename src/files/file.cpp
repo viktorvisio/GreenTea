@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace GT{
 
-void getFilesInDirectory(const string &root, list<string> &fileNames, bool recursive, bool absolutePaths)
+void getFilesInDirectory(const string &root, list<string> &fileNames, bool recursive, bool absolutePaths, bool filesOnly)
 {
 	DIR* directory;
 	struct dirent* dirEntity;
@@ -29,30 +29,43 @@ void getFilesInDirectory(const string &root, list<string> &fileNames, bool recur
 
 	if(stat(root.c_str(), &st) == 0)
 	{
+		//root is regular file
 		if(S_ISREG (st.st_mode))
 			fileNames.push_back(root);
-		else
-			if(S_ISDIR (st.st_mode))
-			{
-				directory = opendir(root.c_str());
 
-				if(directory != NULL)
-				{
-					while((dirEntity = readdir(directory)) != NULL)
-						if(strcmp(dirEntity -> d_name,".") == 0 || strcmp(dirEntity -> d_name,"..") == 0)
-							continue;
-						else
+		//root is directory
+		else if(S_ISDIR (st.st_mode))
+		{
+			directory = opendir(root.c_str());
+
+			if(directory != NULL)
+			{
+				//skipping current and parent directory marks
+				while((dirEntity = readdir(directory)) != NULL)
+					if(strcmp(dirEntity -> d_name,".") == 0 || strcmp(dirEntity -> d_name,"..") == 0)
+						continue;
+					else if(lstat((root + (string)dirEntity -> d_name).c_str(), &st) == 0)
+					{
+						if(S_ISDIR (st.st_mode))
 						{
-							if(lstat((root + (string)dirEntity -> d_name).c_str(), &st) == 0)
+							if(!filesOnly)
 							{
 								if(absolutePaths)
 									fileNames.push_back(root + (string)dirEntity -> d_name);
 								else
 									fileNames.push_back((string)dirEntity -> d_name);
-								if(S_ISDIR (st.st_mode) && recursive)
-									getFilesInDirectory((root + (string)dirEntity -> d_name + "/"), fileNames, recursive, absolutePaths);
 							}
+							if(recursive)
+								getFilesInDirectory((root + (string)dirEntity -> d_name + "/"), fileNames, recursive, absolutePaths, filesOnly);
 						}
+						else
+						{
+							if(absolutePaths)
+								fileNames.push_back(root + (string)dirEntity -> d_name);
+							else
+								fileNames.push_back((string)dirEntity -> d_name);
+						}
+					}
 
 					closedir(directory);
 				}
