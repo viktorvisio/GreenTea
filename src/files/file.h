@@ -42,7 +42,7 @@ void 			vecPairToMap(map< string, string>* dst, const vector<string>* src);
 
 /**
  * Pracovna verzia. Porovna rychlosti medzi readTextFile a tymto.
- */
+
 static string load_text_file(std::string file_name, int code){
 	std::string s;
 
@@ -65,6 +65,7 @@ static string load_text_file(std::string file_name, int code){
 	fclose(file);
 	return s;
 }
+ */
 
 };
 
