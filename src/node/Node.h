@@ -10,50 +10,57 @@
 
 #include <list>
 
+#include "NodeMessage.h"
+#include <thread>
+#include <condition_variable>
+
 using namespace std;
 
+
 namespace GT {
+
+typedef unsigned int nodeID;
+
+class NodeManager;
 
 #define MSG_TYPE_REQUEST_DATA 0;
 #define MSG_TYPE_SEND_DATA 1;
 
-struct node_msg{
-	int type;
-	void* data; // ???
-};
-
-
 
 class Node {
 private:
-	list<node_msg*> msg_queue;
+	bool work;
+	nodeID id; // Node ID.
+	NodeManager* manager;
+	std::list<NodeMessage*> msgList;
+	std::list<int> msgCodes;
+	std::string nodeName;
+	std::thread nodeThread;
+	std::mutex nodeMutex;
+	std::condition_variable cond_var;
+
+	void handleMessages();
+
 public:
-	Node();
+	Node(NodeManager* manager, nodeID _nodeId);
 	virtual ~Node();
 
-	void addMsg(node_msg* msg){
-		msg_queue.push_back(msg);
-		// Nieco ine? Synchronizacia?
+	void addMessageCode(nodeID msgType);
+	void addMsg(NodeMessage* msg);
+	void wakeUp();
+	bool operator==(Node* n);
+	unsigned int getID();
+	void run();
+	void stop();
+	void request(NodeMessage* msg);
+	void response();
+
+	void addArgument(std::string name, int type){
 	}
 
-	//Input, Output?
-	void handleMessages(){
-
-	}
-
-	void sendMsg(int type, void* data){
-
-	}
-
-	/**
-		 * Pridava typy dat ktore je schopny Node spracovat.
-		 */
-	void addDataType(int dType){
-
-	}
-
-
-	void execute();
+	virtual void onCreate(){}
+	virtual void onEnd(){}
+	virtual void execute(NodeMessage* msg){}; // bool pretoze sa spyta ci bola korektne poslana alebo nie.
 };
 
 } /* namespace GT */

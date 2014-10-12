@@ -13,6 +13,11 @@
 #include "tools/mergesort.h"
 #include "math/minmax.h"
 #include "math/Vector.h"
+#include "node/NodeManager.h"
+#include "node/Node.h"
+#include "node/NodeMessage.h"
+
+#include "gui/MainFrame.h"
 
 struct kek{
 	char name;
@@ -28,7 +33,7 @@ int kek_compare(const kek &a, const kek &b){
 	return 1;
 }
 
-int main(){
+int main(int argc, char** argv){
 
 	/*
 	Vector<int> vec(40);
@@ -42,6 +47,7 @@ int main(){
 	printf("V: %d\n", vec[1]);
 */
 	//GT::PairingHeap<kek> hrep = GT::PairingHeap<kek>(kek_compare);
+/*
 	GT::min(GT::func,0.0,8.1, 0.00000000000001);
 
 	GT::PairingHeap<int>* heap = new GT::PairingHeap<int>();
@@ -51,7 +57,7 @@ int main(){
 	heap->add(13);
 	heap->add(4);
 	heap->add(-4);
-
+*/
 	/*
 	printf("T: %d %d\n", heap.pool(), heap.size());
 	printf("T: %d %d\n", heap.pool(), heap.size());
@@ -60,7 +66,7 @@ int main(){
 	printf("T: %d %d\n", heap.pool(), heap.size());
 	printf("\n\n\n\n");
 	*/
-
+/*
 	delete heap;
 	printf("\n\n\n\n");
 
@@ -87,5 +93,34 @@ int main(){
 	FOR(0,4,n)
 		printf("%d\n",gt[n]);
 
-	return 0;
+*/
+
+	GT::NodeManager man;
+
+	GT::Node* node = new GT::Node(&man, 5);
+
+	GT::NodeMessage* msg = new GT::NodeMessage();
+	msg->setTarget(5);
+	msg->msgText = "Uvodna sprava.";
+
+	GT::NodeMessage* msg2 = new GT::NodeMessage();
+	msg2->setTarget(5);
+	msg2->msgText = "Dalsia sprava.";
+
+
+	node->run();
+//	node->wakeUp();
+
+	man.sendMsg(msg);
+
+
+	for(int t = 0; t < 10; t++)
+		man.sendMsg(msg2);
+
+
+	GT::MainFrame window = GT::MainFrame();
+	//sleep(2);
+	//printf("Test.");
+
+	return window.run(argc,argv);
 }
