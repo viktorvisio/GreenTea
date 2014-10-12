@@ -21,34 +21,21 @@ private:
 		T data;
 		bintree_node_s* left;
 		bintree_node_s* right;
-		bintree_node_s* parent;
 	};
 
 	size_t count;
-
 	bintree_node_s* root;
 
+	void recursive_delete(bintree_node_s* node){
+
+		if(root != NULL){
 
 
-	bintree_node_s* lowestleft(bintree_node_s* node){
+			recursive_delete(node->left);
+			recursive_delete(node->right);
+			delete node;
+		}
 
-	}
-
-	bintree_node_s* lowestright(bintree_node_s* node){
-
-		/*parent = temp;
-		lowestNode = temp->left;
-
-		if(lowestNode->right){
-			while(lowestNode->right){
-				parent = lowestNode;
-				lowestNode = lowestNode->right;
-			}
-			parent->right = lowestNode->left;
-		}else{
-			parent->left = lowestNode->left;
-		}*/
-		return node;
 	}
 
 	int (* comparator_ptr)(const T &a, const T &b);
@@ -61,10 +48,15 @@ public:
 
 
 	BinaryTree(int (* comparator)(const T &a, const T &b)){
-			root = NULL;
-			comparator_ptr = comparator;
-			count = 0;
-		}
+		root = NULL;
+		comparator_ptr = comparator;
+		count = 0;
+
+	}
+
+	~BinaryTree(){
+		recursive_delete(root);
+	}
 
 	void insert(T element){
 		bintree_node_s* node = new bintree_node_s;
@@ -219,6 +211,7 @@ public:
 
 				delete temp;
 				--count;
+
 				return ret_val;
 			case 1:
 
@@ -244,6 +237,15 @@ public:
 		return NULL;
 	}
 
+	std::list<T> retrieveAllElements(){
+		std::list<T> list;
+
+
+
+		return list;
+	}
+
+	/*
 	void printa(){
 
 		int t = print(root);
@@ -265,7 +267,7 @@ public:
 
 		return pocet+1;
 	}
-
+	*/
 };
 
 } /* namespace OWA */
